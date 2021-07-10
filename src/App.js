@@ -6,12 +6,11 @@ import NewMeetup from "./pages/NewMeetup";
 import FavoritesMeetups from "./pages/Favorites";
 
 // components
-import MainNavigation from "./components/layouts/MainNavigation";
+import Layout from "./components/layouts/Layout";
 
 function App() {
   return (
-    <div>
-      <MainNavigation />
+    <Layout>
       <Switch>
         <Route path="/" exact>
           <AllMeetups />
@@ -23,7 +22,7 @@ function App() {
           <FavoritesMeetups />
         </Route>
       </Switch>
-    </div>
+    </Layout>
   );
 }
 
