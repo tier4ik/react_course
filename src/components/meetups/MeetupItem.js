@@ -1,9 +1,25 @@
-import Card from "../ui/Card";
+import { useContext } from "react";
 
+import Card from "../ui/Card";
 import styles from "./MeetupItem.module.css";
 
+import FavoritesContext from "../../store/favorites-context";
+
 function MeetupItem(props) {
-  const { image, title, address, description } = props.meetup;
+  const favoritesCtx = useContext(FavoritesContext);
+
+  const { id, image, title, address, description } = props.meetup;
+
+  const itemIsFavorite = favoritesCtx.itemIsFavorite(id);
+
+  function toggleFavoriteStatusHandler() {
+    if (itemIsFavorite) {
+      favoritesCtx.removeFavorite(id);
+    } else {
+      favoritesCtx.addFavorite(props.meetup);
+    }
+  }
+
   return (
     <li className={styles.item}>
       <Card>
@@ -16,7 +32,7 @@ function MeetupItem(props) {
           <p>{ description }</p>
         </div>
         <div className={ styles.actions }>
-          <button>To Favorites</button>
+          <button onClick={ toggleFavoriteStatusHandler }>{ itemIsFavorite ? 'Remove from Favorites' : 'To favorites' }</button>
         </div>
       </Card>
     </li>
